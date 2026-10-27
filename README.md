@@ -4,10 +4,9 @@
 
 | | |
 |---|---|
-| **Live app** | `<add Vercel URL>` |
-| **API** | `<add Render URL>/api/health` |
+| **Live app** | `https://resellring.vercel.app](https://resellring.vercel.app/` |
 | **Demo video** | `<add video link>` |
-| **Student** | `<your name>` |
+| **Student** | `Riddhima Jaiswal` |
 
 ---
 
