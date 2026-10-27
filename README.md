@@ -42,7 +42,7 @@ Each step is enforced by the server. You can't skip steps, offer on your own ite
 ### Listings
 - Post items with up to 4 photos, category, condition and asking price
 - Search by keyword and filter by category, condition and price range, with sorting and pagination
-- Edit or delete your own listings while they are still active
+- Edit details or delete your own listings while they are still active
 
 ### Offer → Accept / Decline / Counter workflow
 - Buyers make an offer with an optional message
@@ -208,6 +208,15 @@ npm install
 npm run dev                  # http://localhost:5173
 ```
 
+> **Port note:** the API defaults to `5000`. On macOS, AirPlay Receiver uses that port; if you get `EADDRINUSE`, set `PORT=5001` in `server/.env` and `VITE_API_URL=http://localhost:5001` in `client/.env`. In production the server reads `PORT` from the host automatically.
+
+### Tests
+
+```bash
+cd server && npm test
+```
+Unit tests cover the offer state machine: every legal transition, wrong-role attempts (403), illegal moves and terminal states (409).
+
 ### Demo data
 
 `npm run seed` (in `server/`) fills the database with 5 students, 12 active listings, 15 completed sales (so the **Sold prices** page and seller ratings are populated) and a few deals mid-way through the workflow. All accounts use the password **`Password123!`**; emails use the first domain in `ALLOWED_EMAIL_DOMAINS` (default `college.edu`).
@@ -248,6 +257,8 @@ The seed script refuses to run when `NODE_ENV=production` unless `FORCE_SEED=1` 
 | Server | Render (Web Service) | Root `server`, build `npm install`, start `npm start`, add all server env vars. Set Cloudinary keys, because Render's disk is ephemeral |
 | Client | Vercel | Root `client`, framework Vite, set `VITE_API_URL` to the Render URL. Add a rewrite of all paths to `/index.html` for client-side routing |
 
+A `render.yaml` blueprint is included (Render → New → Blueprint) that pre-fills the service settings and generates `JWT_SECRET`; you only add the secrets marked `sync: false`.
+
 After deploying, set `CLIENT_URL` on Render to the Vercel URL. Note that Render's free tier sleeps after inactivity, so the first request can take about 30 seconds.
 
 ## 12. Project Structure
@@ -259,7 +270,7 @@ resellring/
 │       ├── api/            # fetch wrapper + per-resource API functions
 │       ├── context/        # AuthContext (token, user, login/logout)
 │       ├── components/     # ListingCard, OfferBox, MeetupPanel, RatingForm, ...
-│       └── pages/          # Browse, ListingDetail, NewListing, MyDeals, PriceHistory, Profile, Login
+│       └── pages/          # Browse, ListingDetail, NewListing, EditListing, MyDeals, PriceHistory, Profile, Login
 ├── server/
 │   └── src/
 │       ├── config/         # database connection
@@ -289,7 +300,8 @@ resellring/
 - In-app chat between buyer and seller
 - Reporting, moderation and an admin role
 - Wishlists and "notify me when listed"
-- Automated test suite for the offer state machine
+- Integration tests that run the whole offer-to-rating flow against a test database (unit tests for the state machine already exist)
+- Changing photos when editing a listing
 
 ## 15. AI Usage & Originality
 
