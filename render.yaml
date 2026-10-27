@@ -1,0 +1,18 @@
+# Render Blueprint: New + > Blueprint, pick this repo. Fill the "sync: false" values in the dashboard.
+services:
+  - type: web
+    name: resellring-api
+    runtime: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - { key: NODE_VERSION, value: "20" }
+      - { key: JWT_SECRET, generateValue: true }
+      - { key: MONGODB_URI, sync: false }
+      - { key: CLIENT_URL, sync: false }
+      - { key: ALLOWED_EMAIL_DOMAINS, sync: false }
+      - { key: CLOUDINARY_CLOUD_NAME, sync: false }
+      - { key: CLOUDINARY_API_KEY, sync: false }
+      - { key: CLOUDINARY_API_SECRET, sync: false }
