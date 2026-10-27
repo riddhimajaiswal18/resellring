@@ -39,7 +39,7 @@ export default function ListingDetail() {
         {err && <div className="alert error">{err}</div>}
         {mine ? (<div className="panel">
           <p>This is your listing.</p>
-          <div className="row"><Link className="btn small" to="/deals">View offers</Link>{l.status === 'active' && <button className="danger small" onClick={remove}>Delete listing</button>}</div></div>)
+          <div className="row"><Link className="btn small" to="/deals">View offers</Link>{l.status === 'active' && <><Link className="btn small ghost" style={{ background: 'transparent', color: 'var(--ink)' }} to={`/listing/${l._id}/edit`}>Edit details</Link><button className="danger small" onClick={remove}>Delete listing</button></>}</div></div>)
         : l.status !== 'active' ? <div className="alert error">This item is {l.status} and no longer accepting offers.</div>
         : !user ? <div className="panel"><Link className="btn" to="/login" state={{ from: `/listing/${l._id}` }}>Log in to make an offer</Link></div>
         : <OfferBox listing={l} hint={hist?.summary?.[0]} />}

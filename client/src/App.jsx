@@ -5,6 +5,7 @@ import Browse from './pages/Browse';
 import Auth from './pages/Auth';
 import ListingDetail from './pages/ListingDetail';
 import NewListing from './pages/NewListing';
+import EditListing from './pages/EditListing';
 import MyListings from './pages/MyListings';
 import MyDeals from './pages/MyDeals';
 import PriceHistory from './pages/PriceHistory';
@@ -20,6 +21,7 @@ export default function App() {
         <Route path="/login" element={<Auth />} />
         <Route path="/listing/:id" element={<ListingDetail />} />
         <Route path="/sell" element={<ProtectedRoute><NewListing /></ProtectedRoute>} />
+        <Route path="/listing/:id/edit" element={<ProtectedRoute><EditListing /></ProtectedRoute>} />
         <Route path="/my-listings" element={<ProtectedRoute><MyListings /></ProtectedRoute>} />
         <Route path="/deals" element={<ProtectedRoute><MyDeals /></ProtectedRoute>} />
         <Route path="/prices" element={<PriceHistory />} />

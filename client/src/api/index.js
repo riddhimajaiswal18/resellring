@@ -31,6 +31,7 @@ export const api = {
   listings: (params) => request(`/listings${qs(params)}`),
   listing: (id) => request(`/listings/${id}`),
   createListing: (form) => request('/listings', { method: 'POST', form }),
+  updateListing: (id, body) => request(`/listings/${id}`, { method: 'PATCH', body }),
   deleteListing: (id) => request(`/listings/${id}`, { method: 'DELETE' }),
   makeOffer: (body) => request('/offers', { method: 'POST', body }),
   myOffers: (role) => request(`/offers/mine${qs({ role })}`),
