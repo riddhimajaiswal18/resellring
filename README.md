@@ -198,6 +198,7 @@ git clone <your-repo-url> && cd resellring
 cd server
 cp .env.example .env        # then fill in values
 npm install
+npm run seed                 # optional: load demo data (WIPES the database in MONGODB_URI)
 npm run dev                  # http://localhost:5000
 
 # 3. Client (new terminal)
@@ -206,6 +207,19 @@ cp .env.example .env
 npm install
 npm run dev                  # http://localhost:5173
 ```
+
+### Demo data
+
+`npm run seed` (in `server/`) fills the database with 5 students, 12 active listings, 15 completed sales (so the **Sold prices** page and seller ratings are populated) and a few deals mid-way through the workflow. All accounts use the password **`Password123!`**; emails use the first domain in `ALLOWED_EMAIL_DOMAINS` (default `college.edu`).
+
+| Log in as | What you'll see |
+|---|---|
+| `aarav@college.edu` | Two pending offers and one counter on his listings: try accept / decline / counter |
+| `rohan@college.edu` | Has a counter-offer waiting for his response, and a reserved racket sale |
+| `karthik@college.edu` | A reserved study table: agree to the proposed meetup |
+| `priya@college.edu` | A buyer: browse, filter and make an offer |
+
+The seed script refuses to run when `NODE_ENV=production` unless `FORCE_SEED=1` is set.
 
 ### Environment variables
 
@@ -256,6 +270,7 @@ resellring/
 │       ├── utils/          # AppError, asyncHandler
 │       ├── constants.js    # categories, conditions, campus locations
 │       ├── app.js          # Express app
+│       ├── seed.js         # demo data (npm run seed)
 │       └── server.js       # entry point
 └── README.md
 ```
