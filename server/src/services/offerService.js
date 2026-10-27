@@ -17,6 +17,13 @@ const RULES = {
     withdraw: { actor: 'buyer', to: 'withdrawn' },
   },
 };
+// Pure state-machine rule: returns the next status, or throws 409 (illegal move) / 403 (wrong actor)
+export function resolveTransition(status, action, role) {
+  const rule = RULES[status]?.[action];
+  if (!rule) throw new AppError(409, `Cannot ${action} an offer that is ${status}`);
+  if (rule.actor !== role) throw new AppError(403, `Only the ${rule.actor} can ${action} this offer`);
+  return rule.to;
+}
 const ttl = () => new Date(Date.now() + OFFER_TTL_HOURS * 3600 * 1000);
 
 export const expireStale = (filter = {}) =>
@@ -45,9 +52,7 @@ export async function respondToOffer(offerId, user, action, counterAmount) {
     await expireStale({ _id: offer._id });
     throw new AppError(409, 'This offer has expired');
   }
-  const rule = RULES[offer.status]?.[action];
-  if (!rule) throw new AppError(409, `Cannot ${action} an offer that is ${offer.status}`);
-  if (rule.actor !== role) throw new AppError(403, `Only the ${rule.actor} can ${action} this offer`);
+  const to = resolveTransition(offer.status, action, role);
 
   const guard = { _id: offer._id, status: offer.status }; // optimistic concurrency on the offer itself
 
@@ -73,7 +78,7 @@ export async function respondToOffer(offerId, user, action, counterAmount) {
     return accepted;
   }
 
-  const updated = await Offer.findOneAndUpdate(guard, { status: rule.to, isOpen: false }, { new: true });
+  const updated = await Offer.findOneAndUpdate(guard, { status: to, isOpen: false }, { new: true });
   if (!updated) throw new AppError(409, 'Offer was changed, please refresh');
   return updated;
 }
