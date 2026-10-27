@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import authRoutes from './routes/auth.js';
 import listingRoutes from './routes/listings.js';
 import offerRoutes from './routes/offers.js';
+import meetupRoutes from './routes/meetups.js';
 import { notFound, errorHandler } from './middleware/error.js';
 
 const app = express();
@@ -17,6 +18,7 @@ app.use('/api/auth', rateLimit({ windowMs: 15 * 60 * 1000, limit: 50, standardHe
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 app.use('/api/listings', listingRoutes);
 app.use('/api/offers', offerRoutes);
+app.use('/api/meetups', meetupRoutes);
 app.use(notFound);
 app.use(errorHandler);
 export default app;
