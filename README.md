@@ -5,7 +5,7 @@
 | | |
 |---|---|
 | **Live app** | `https://resellring.vercel.app](https://resellring.vercel.app/` |
-| **Demo video** | `<add video link>` |
+| **Demo video** | `https://drive.google.com/file/d/13KCLYrMg8qUsawBrHqfxcu6MUEYtLLSA/view?usp=sharing` |
 | **Student** | `Riddhima Jaiswal` |
 
 ---
