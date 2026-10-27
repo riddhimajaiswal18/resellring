@@ -7,6 +7,8 @@ import ListingDetail from './pages/ListingDetail';
 import NewListing from './pages/NewListing';
 import MyListings from './pages/MyListings';
 import MyDeals from './pages/MyDeals';
+import PriceHistory from './pages/PriceHistory';
+import Profile from './pages/Profile';
 import { Empty } from './components/Status';
 
 export default function App() {
@@ -20,6 +22,8 @@ export default function App() {
         <Route path="/sell" element={<ProtectedRoute><NewListing /></ProtectedRoute>} />
         <Route path="/my-listings" element={<ProtectedRoute><MyListings /></ProtectedRoute>} />
         <Route path="/deals" element={<ProtectedRoute><MyDeals /></ProtectedRoute>} />
+        <Route path="/prices" element={<PriceHistory />} />
+        <Route path="/u/:id" element={<Profile />} />
         <Route path="*" element={<div className="container"><Empty icon="🧭" title="Page not found" /></div>} />
       </Routes>
     </>
