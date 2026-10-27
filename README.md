@@ -307,6 +307,4 @@ resellring/
 
 AI tools were used as an engineering assistant for design discussion, code generation and documentation. The architecture, workflows and business rules were reviewed, run and tested by the author. This is an original project and not based on an existing open-source marketplace. Open-source libraries are used under their own licences.
 
-## 16. Author
 
-**`<your name>`** · `<email>` · [GitHub](`<profile link>`)
