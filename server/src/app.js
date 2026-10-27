@@ -6,6 +6,8 @@ import authRoutes from './routes/auth.js';
 import listingRoutes from './routes/listings.js';
 import offerRoutes from './routes/offers.js';
 import meetupRoutes from './routes/meetups.js';
+import ratingRoutes from './routes/ratings.js';
+import statsRoutes from './routes/stats.js';
 import { notFound, errorHandler } from './middleware/error.js';
 
 const app = express();
@@ -19,6 +21,8 @@ app.get('/api/health', (_req, res) => res.json({ ok: true }));
 app.use('/api/listings', listingRoutes);
 app.use('/api/offers', offerRoutes);
 app.use('/api/meetups', meetupRoutes);
+app.use('/api/ratings', ratingRoutes);
+app.use('/api/stats', statsRoutes);
 app.use(notFound);
 app.use(errorHandler);
 export default app;
